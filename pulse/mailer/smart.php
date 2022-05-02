@@ -3,6 +3,7 @@
 $name = $_POST['name'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
+$usertext = $_POST['usertext'];
 
 require_once('phpmailer/PHPMailerAutoload.php');
 $mail = new PHPMailer;
@@ -17,8 +18,8 @@ $mail->Username = 'ipony.digital.store@gmail.com';                 // Наш л�
 $mail->Password = 'gxeaefkdaxwughpg';                           // Наш пароль от ящика
 $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 465;                                    // TCP port to connect to
- 
-$mail->setFrom('ipony.digital.store@gmail.com', 'Pulse');   // От кого письмо 
+
+$mail->setFrom('ipony.digital.store@gmail.com', 'Global Opt');   // От кого письмо 
 $mail->addAddress('bayer.erich7@gmail.com');     // Add a recipient
 //$mail->addAddress('ellen@example.com');               // Name is optional
 //$mail->addReplyTo('info@example.com', 'Information');
@@ -33,7 +34,9 @@ $mail->Body    = '
 		Пользователь оставил данные <br> 
 	Имя: ' . $name . ' <br>
 	Номер телефона: ' . $phone . '<br>
-	E-mail: ' . $email . '';
+	E-mail: ' . $email . '<br>
+	Сообщение: ' . $usertext . '';
+	
 
 if(!$mail->send()) {
     return false;

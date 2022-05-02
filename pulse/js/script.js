@@ -1,84 +1,68 @@
 $(document).ready(function() {
     $('.carousel__inner').slick({
-        speed: 1200,
-        adaptiveHeight: true,
         prevArrow: '<button type="button" class="slick-prev"><img src="icons/left.svg"></button>',
         nextArrow: '<button type="button" class="slick-next"><img src="icons/right.svg"></button>',
+        centerMode: true,
+        centerPadding: '498px',
+        slidesToShow: 1,
         responsive: [
-            {
-                breakpoint: 992,
-                settings: {
-                    dots: true,
-                    arrows: false,
-                }  
+        {
+            breakpoint: 1619,
+            settings: {
+                centerMode: true,
+                centerPadding: '470px',
             }
+        },
+        {
+            breakpoint: 1459,
+            settings: {
+                centerMode: true,
+                centerPadding: '390px',
+            }
+        },
+        {
+            breakpoint: 1199,
+            settings: {
+                adaptiveHeight: true,
+                arrows: true,
+                centerMode: false,
+                autoplay: true,
+                autoplaySpeed: 15000,
+            }
+        }
         ]
     });
 
-    $('ul.catalog__tabs').on('click', 'li:not(.catalog__tab_active)', function() {
-        $(this)
-          .addClass('catalog__tab_active').siblings().removeClass('catalog__tab_active')
-          .closest('div.container').find('div.catalog__content').removeClass('catalog__content_active').eq($(this).index()).addClass('catalog__content_active');
-      });
+    window.addEventListener('DOMContentLoaded', () => {
+        const menu = document.querySelector('.header__menu'),
+        menuItem = document.querySelectorAll('.header__menu-item'),
+        hamburger = document.querySelector('.header__hamburger');
 
-    function toggleSlide(item) {
-        $(item).each(function(i) {
-            $(this).on('click', function(e) {
-                e.preventDefault();
-                $('.catalog-item__content').eq(i).toggleClass('catalog-item__content_active');
-                $('.catalog-item__list').eq(i).toggleClass('catalog-item__list_active');
-            })
-        })
-    };
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('header__hamburger_active');
+            menu.classList.toggle('header__menu_active');
+        });
 
-    toggleSlide('.catalog-item__link');
-    toggleSlide('.catalog-item__back');
+        menuItem.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.toggle('header__hamburger_active');
+                menu.classList.toggle('header__menu_active');
+            });
+        });
+    });
 
-    // Modal
-
-    $('[data-modal=consultation]').on('click', function() {
-        $('.overlay, #consultation').fadeIn('slow');
+    $('[data-modal=general]').on('click', function() {
+        $('.overlay, #general').fadeIn('slow');
     });
     $('.modal__close').on('click', function() {
-        $('.overlay, #consultation, #thanks, #order').fadeOut('slow');
+        $('.overlay, #general, #thanks').fadeOut('slow')
     });
-    $('.button_mini').each(function(i) {
-        $(this).on('click', function() {
-            $('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
-            $('.overlay, #order').fadeIn('slow');
-        });
+    const overlay = document.querySelector('.overlay');
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            $('#general, #thanks, .overlay').fadeOut('slow');
+        }
     });
-
-    function valideForms(form){
-        $(form).validate({
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 2
-                },
-                phone: "required",
-                email: {
-                    required: true,
-                    email: true
-                }
-            },
-            messages: {
-                name: {
-                    required: "Пожалуйста, введите свое имя*",
-                    minlength: jQuery.validator.format("Имя должно содержать не меньше {0} символов*")
-                },
-                phone: "Пожалуйста, введите свой номер телефона*",
-                email: {
-                  required: "Пожалуйста, введите свою электронную почту*",
-                  email: "Неправильно введен адресс электронной почты*"
-                }
-            }
-        });
-    };
-
-    valideForms('#consultation-form');
-    valideForms('#consultation form');
-    valideForms('#order form');
 
     $('input[name=phone]').mask("+7 (999) 999-99-99");
 
@@ -95,7 +79,7 @@ $(document).ready(function() {
             data: $(this).serialize()
         }).done(function() {
             $(this).find("input").val("");
-            $('#consultation, #order').fadeOut();
+            $('#general').fadeOut();
             $('.overlay, #thanks').fadeIn('slow');
 
 
@@ -103,23 +87,4 @@ $(document).ready(function() {
         });
         return false;
     });
-
-    // Smooth scroll and pageup
-
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 1600) {
-            $('.pageup').fadeIn();
-        } else {
-            $('.pageup').fadeOut();
-        }
-    });
-
-    $("a[href=#up]").click(function(){
-        const _href = $(this).attr("href");
-        $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
-        return false;
-    });
-
-    new WOW().init();
 });
- 
