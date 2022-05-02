@@ -1,0 +1,27 @@
+.btn {
+    background: $main-color;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 12px;
+    width: 160px;
+    height: 45px;
+    &:hover {
+        box-shadow: 0px 3px 10px $main-color, 0px -3px 10px #4ce2ff;
+        background-image: linear-gradient(to top, $main-color 0%, #4ce2ff 100%)
+    }
+    &-big {
+        font-weight: 700;
+        width: 230px;
+        height: 57px;
+        font-size: 15px;
+    }
+    &-long {
+        width: 180px;
+    }
+    &-overley {
+        width: 200px;
+    }
+}

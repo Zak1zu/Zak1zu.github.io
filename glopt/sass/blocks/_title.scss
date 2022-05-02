@@ -1,0 +1,20 @@
+.title {
+    font-weight: 700;
+    &_fz72 {
+        line-height: 1.1;
+        font-size: 72px;
+        font-family: 'Roboto Condensed';
+    }
+    &_fz26 {
+        font-size: 26px;
+    }
+    &_fz19 {
+        font-size: 19px;
+    }
+    &_fz18 {
+        font-size: 18px;
+    }
+    &_fz16 {
+        font-size: 16px;
+    }
+}
