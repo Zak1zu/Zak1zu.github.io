@@ -41,6 +41,12 @@ $(document).ready(function() {
     $('.modal__close').on('click', function() {
         $('.overlay, #general, #thanks').fadeOut('slow')
     });
+    const overlay = document.querySelector('.overlay');
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            $('#general, #thanks, .overlay').fadeOut('slow');
+        };
+    });
 
     $('input[name=phone]').mask("+38 (999) 999-99-99");
 
